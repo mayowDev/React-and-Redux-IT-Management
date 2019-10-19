@@ -11,12 +11,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 *This app was built using the latest and greatest technologies out today:-
 
---Materlizecss = I choose materilize b/c it's easy to pick ,and it has a beautiful  Layout
---React = faster load-time compared to other framwork.
---Redux = I use redux for clean and effective way of handling the App level states. 
---Webpack= i choose webpack b/c it takes away the layer that other task runners 
-like gulp and grunt add to the project.
---Async & await , Fetch and local json server 
+--Materlizecss = I choose materilize b/c it's easy to pick ,and it has a beautiful  Layout <br>
+--React = faster load-time compared to other framwork. <br>
+--Redux = I use redux for clean and effective way of handling the App level states.  <br>
+--Webpack= i choose webpack b/c it takes away the layer that other task runners  
+like gulp and grunt add to the project.<br>
+--Async & await , Fetch and local json server <br>
 
 ## Available Scripts
 
