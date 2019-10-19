@@ -1,4 +1,22 @@
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+
+## Project Name=>  IT LOGS Management 
+
+#Project Description=>  It Log management web app where develeopers can add to log and  other developers can come and solve needed loog and it will update , it has full CRUD functionality.
+
+## Summery
+
+*This app was built using the latest and greatest technologies out today:-
+
+--Materlizecss = I choose materilize b/c it's easy to pick ,and it has a beautiful  Layout
+--React = faster load-time compared to other framwork.
+--Redux = I use redux for clean and effective way of handling the App level states. 
+--Webpack= i choose webpack b/c it takes away the layer that other task runners 
+like gulp and grunt add to the project.
+--Async & await , Fetch and local json server 
 
 ## Available Scripts
 
