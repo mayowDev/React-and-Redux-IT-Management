@@ -6,6 +6,8 @@
 
 ### `npm install`
 
+installs necessary dependencies
+
 ### `npm run dev`
 
 Runs the app with the backend JSON-Server<br>
