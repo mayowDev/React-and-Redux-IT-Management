@@ -1,0 +1,44 @@
+----------------Lesson 4 Materialize setup-----------------------------
+
+-npm i materialize-css
+-install material icons from https://google.github.io/material-design-icons/ in index.html
+-import materilize-css/dist/css/materialize.min.js in app.js
+-import M fro materialize-css/dist/js/materialize.min.js
+
+-we dont have acces to document.addEventListiner in react so we use useEffect and M.AutoInit()
+to init materlize automatically rather than initilaing for modal javascript or component each time
+
+------------lesson 5 SearhBar $ Logs component----------
+=>SearchBar component
+
+-component>layout>SearchBar.js(searchnavbar from materialize.css)
+
+=>Logs component
+component>logos>Logs.js,LogItem.js
+-import useState and useEffect in Logs.js
+-in Logs.js create state for logs and loading
+-create getLogs action>setloading to true> fetch data from './logs/ >change response to json >setLogs 
+to changed data>setLoading false
+-inside the return add ul collection-with-header >li with-header= <h4> System Logs</h4>
+
+
+------lesson 6 LogItem and preloader---------------
+-create LogItem.js>racfp>pass {log} as prop>, 
+-have li clasname =collection-item>div(a href='#edit-log-modal clasname={`modal-trigger ${log.attention ? 'red-text':'blue-text'}`}`
+-<LogItem log={log} key={log.id} /> put this in the logs wheher we map our logs
+
+-------spand with delete icon-----------
+-span calssname ='grey-text'> inside this create
+
+
+------------Dates in React-----
+-Moment and react is used to format dates in react
+-npm i moment react-moment
+-<Moment format='MM Do YYYY, h:mm:ss a'>{log.date}</Moment>
+-craete delete icon  link a with classname of secondary-content, inside that a there is i con of delete
+
+-----------------------preloader materilize----------
+-create Preloader component in layout folder
+<div className='progress blue lighten-4>
+   <div classNmae='indeterminate blue'></div>
+</div>

@@ -1,0 +1,111 @@
+
+-------------------------chapter 2 redux for state managment
+
+.store.js in root folder, actions folder in src folder(logAction.js,techAction.js),reducers(logReducer
+
+======>lesson 1 Redux store and provider
+
+- redux-thunk = is middleware for redux that allows us to make asynchronus functions inside of our 
+actions
+-redux-devtools-extension)= to use redxu dev tool for chrome , we need 
+
+-npm i redux react-redux redux-thunk redux-devtools-extension
+-create reducers folder in src folder
+-create store.js in root folder
+
+--------------Store---------------
+-in store.js import these dependecies:-
+a:import {createStore, applyMidleWare} from 'redux'
+b:import thunk from redux-thunk
+c:import {composeWithDevTools} from 'redux-devtools-extension
+d: import rootReducer from './reducers
+
+-const intiailiState = {} and middleWare to [thunk];
+-const store=createStore(rootReducer,initialState,composeWithDevTools(applyMiddleWare(...middleWare)));
+-export default store;
+
+-------------reducers-------------------------------
+-in reducers folder create index.js file
+-in index.js :-
+a:import {combineReducer} from 'redux';
+export default combineReducers({})
+-in this index.js file we combine all our reducer here bym importing them and define as object inside
+combineReducer({})
+import {Provider} from 'react-redux' in app.js
+import store from './store' in app.js
+wrapp Provider around our code in app.js
+
+------------------------------lesson 2 actions &types and logReducer---------------
+-create logReducer.js in reducers 
+.create intitialState for logs:null, current:null, error:null,loading:false,
+.export default(state=initialState,action)=>{switch(action.type){default: return state;}};
+.import logReducer in our index.js and insde the combineReducers place it there as obejct  
+
+
+-------------------------------------------actions--------------------------------------
+.create actions folder and add these files:- types.js and logActions.js
+-in type.js create 14 type for each action 
+-in logActions , import GET_LOGS, SET_LOADING,LOGS_ERROR from types
+
+==>setLoading action
+-in logActions:- export const setLoading=()=>{return {type:SET_LOADING};};   <=== set loading true
+-we handle that setLoading action in logReducer by createing:- case  SET_LOADING:
+ and return {...state,loading:true}.
+
+==>getLogs action
+-we return type object in setLoading action but, for getLogs action we use thunk so we can request
+logs asynchronously  and thunk returns a function instead normal object
+
+-export const getLogs=()=>async dispatch=>{setLoading();const res=await fetch('./logs');
+const data=await res.json(); dispatch({type:GET_LOGS, payload:data});}
+-we add try&catch, in try we dispatch as normal , and in 
+catch(err){dispatch({type:LOGS_ERROR,payload:err.response.data}) 
+-we handle that getLogs action and LOGS_ERROR in logReducer by createing:- case  GET_LOGS:
+return {...state,logs:action.payload,loading:false}
+
+-------------Lesson 3 Connecting Redux to Component------------
+
+-we  need {connect} in order to interact with redux from a component
+-import {connect} from 'react-redux'
+-export connect()(Logs);
+-connect takes two things:-
+a: mapStateToProps which allows to get anything from app level state into component via prop
+  E.g=> we are getting logs and loading state from logReducer which are in app level states 
+-after end return :- const mapStateToProps=state=>({log:state.log});
+-nosw in component function destructure the log prop and pull out logs and loading from state
+-const Logs=({log:{logs,loading}})=>{}
+-import proptypes for our log prop 
+
+----------cleaning the Logs componenet and calling our action
+-get rid of the states
+-get rid of our getLogs action b/c we calling in Logaction
+
+-in order to call action within in component we need to import that action
+-and we call inside the useEffect(()=>{getLogs();},[])
+-in order to work that action we have to pass in connect as second prameter like we pass mapStateProps as first prameter
+E.g export connect(mapStateToProps,{getLogs} )(Logs)
+-we we bring our action from applevel sate and pass in connect 2nd prameter, it becomes Prop , so we 
+need to pass our action as prop destructuring in our component
+E.g const Logs=({log:{logs,lodaing},getLogs})=>
+-change our if condition  to show pre-loader when loading and logs are null
+E.g if(loading || logs === null){<Prelaoder/>} 
+
+-----------Lesson4 Add Logs action-----------------
+=>3 steps for adding functionality when using redux(1: add action and dispacth to the reducer 2:handle
+dispacthed action as type in our reducer, 3:connect to the component
+1: add action and dispacth to the reducer:=>
+-copy past getLogs action and pass our componet a (log) data 
+-when fetching our res it takes, POST method , and body :JSON.stringfy(log), and
+ headers:{'Content-Type':'application/json} 
+-change every getLogs to addLog
+2:handle dispacthed action as type in our reducer:=>
+-create case ADD_LOG:return{...state,logs:[...state.logs,action.payload],loading:false}
+3:connect to the component:=>
+-import connect,  addLog  and proptypes
+-export connect below, in this time we dont have state to map so we set null to it's place, {addLog}
+-add addLog as proptype of fuctions above the style
+-place addLog(newLog) action in else statement of checking the input field 
+-create newLog objec that hold {tech,attention,message,date:new Date()}
+-M.toast({html:`new log add by ${tech}`});
+-clearefields()
+

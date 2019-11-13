@@ -1,0 +1,106 @@
+-----------------lesson 5 DELET  log--------------
+
+--REMEMBER 3steps(Action , handle reducer , conncet redux to component 
+1=>Action
+-inside try fetch logs id:-
+E.g: export const deleteLog=(id)=>async dispatch{
+setLoading(); awiat fetch(`/logs/${id},{method:'DELETE'}); 
+dispatch({type:DELETE_LOG, payload:id});} 
+-inside catch we handle err
+catch(err){dispatch({type:LOGS_ERROR,payload:err.response.data});} 
+2=>handle reducer
+case DELETE_LOG: return{...state,logs:state.logs.filter(log=>log.id!== action.payload),loading:false};
+3=>connect component
+-import connect , deleteLog,M 
+-export default conncet(null,{deleteLog})(LogItem); pas deleteLog as prop
+-create onDelete arrow function inside our component  const onDelete=()=>{deletLog(log.id);
+M.toast({html:'log deleted'})}
+-in our delete icon add onClick={onDelete} inside the a tag
+
+--the log in logItem is a prop that comes from logs.js
+
+
+-------------Lesson 6 Update log--------
+
+
+.put/update and post both give us dat as respnse
+
+1=>action
+-import  SET_CURRENT,CLEAR_CURRENT,UPDATE_LOG from types in Logaction
+->create our updateLog action:
+.export const updateLog=log=>async dispact{setLoading(); const await fetch(`/logs/${log.id}`,
+{method:POST,body:JSON.stringify(log),headers:{'Content-Type':'application/json}});
+ const data=await res.json();
+dispatch({type:UPDATE_LOG,payload:data});catch(err){dispatch({type:LOGS_ERROR,payload:err.response.data});}};
+->create SET_CURRENT action:
+.export const SET_CURRENT =(log)=>async dispacth{type:SET_CURRENT,payload:log}
+->create our CLEAR_CURRENT
+.export const CLEAR_CURRENT=()=>dispatch{type:CLEAR_CURRENT}
+2=>handle reducer
+.create case UPDATE_LOG and  compare the log.id we want to change and action.payload.id if they're equal 
+set logs satet to our action.payload else display log
+.create case SET_CURRENT and set our current state to action.payload
+.create case CLEAR_CURRENT and set current to null 
+3=> conncet
+->connect setCurrent
+-import setCurrent in LogItem.js, pass as prop , add to connect , create proptype for it, 
+-create onClick function that takes arrow function of setCurrent(log) inside the a tag of message
+->connect updateLog
+8min EditLogModal.js
+-import updateLog ,connect, ,proptypes in EditLogmadal.js
+-create mapStateToProps, and get  state of 'current'
+.const mapStateToProps=state=>({current:state.log.current}) // here we getting cliked log
+-connect updateLog in down when exporting
+.export default connect(mapStateToProps,{updateLog})(EditLogModal);
+-create proptypes from current and updateLog
+-pass current and updateLog as prop in head of the component
+---setting current data into form---
+-import useEffect
+.we gonna check if current is clicked, by default is null , but it will be filed with the log we clicked
+-useEffect(()=>{if(curent){
+      setMessage(current.message);
+      setTech(current.tech);
+      setAttention(current.attention)}
+},[current]);
+
+----submit the data we edited
+-in onsubmit function we had if else statement that checks the alert if the input is empty, in else{
+	const updLog = {
+        id: current.id, //update id with same id 
+        message,
+        tech, //update with selected tech in the option
+        attention, //update with attention if marked or 
+        date: new Date() //update with new Date
+      };
+	updateLog(updLog); //caling our update action
+      	M.toast({ html: `updated by ${tech}` }); //alert after added
+      // cleare the inputs after entered 
+     	 setMessage("");
+      	setAttention(false);
+     	 setTech("");
+}
+
+
+=================lesson 7 search======================
+-json server gives us searh functionality, by making reuqest /logs?qtext
+1=>action
+.in logActions , copy paste getLogs action and change every getLogs to SearcLogs
+-pass text as parameter in the action 
+- fetch(`/logs?q=${text}`
+-import SEARCH LOGS in logActions
+
+2=>Reducer
+-create case for SEARCH_LOGS
+-rrturn logs state to action.payload 
+
+3=>Connect to Searchbar.js
+-import connect ,searchLogs, PropTypes 
+-connect our searchLogs action in export default , and there is no mapStateToProps , so set to null.
+-pass searchLogs as prametere in our function 
+-import useRef from react . we using useRef to get value from the logs
+-initilize useRef =>> const text=useRef('')
+-call our searchLogs action when onChange input
+.const onChange=e=>{searchLogs(text.current.value);};
+-attach onChange in seach input 
+.onChange={onChange}
+-attach ref to search input >>  ref={text} 

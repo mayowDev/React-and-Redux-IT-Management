@@ -1,0 +1,28 @@
+{
+  "logs": [
+    {
+      "id": 1,
+      "message": "aaaaan44564654",
+      "tech": "Mayow jr",
+      "attention": true,
+      "date": "2019-10-16T14:02:50.279Z"
+    }
+  ],
+  "techs": [
+    {
+      "id": 1,
+      "firstName": "mayow ",
+      "lastName": "jr"
+    },
+    {
+      "id": 2,
+      "firstName": "pato ",
+      "lastName": "sr"
+    },
+    {
+      "id": 3,
+      "firstName": "hashim ",
+      "lastName": "eng"
+    }
+  ]
+}
